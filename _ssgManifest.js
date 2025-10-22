@@ -1,0 +1,1 @@
+self.__SSG_MANIFEST=new Set(["\u002F","\u002Fcashier3","\u002Fgames\u002F[...index]","\u002Finformation\u002F[...index]","\u002Flivecasino","\u002Fmyaccount","\u002Fpromotions\u002F[...index]"]);self.__SSG_MANIFEST_CB&&self.__SSG_MANIFEST_CB()
