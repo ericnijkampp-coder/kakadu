@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kakadu Casino - Login & Signup</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+            background: url('https://kakaducasinonl.com/wp-content/uploads/2025/06/Kakadu-casino-main.webp') no-repeat center center fixed;
+            background-size: cover;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .auth-container {
+            display: flex;
+            width: 100%;
+            max-width: 800px;
+            margin: 0 20px;
+        }
+        
+        .auth-form {
+            background-color: rgba(26, 26, 46, 0.9);
+            border-radius: 8px;
+            padding: 30px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+            border: 1px solid rgba(255, 215, 0, 0.2);
+        }
+        
+        .form-tabs {
+            display: flex;
+            margin-bottom: 20px;
+        }
+        
+        .tab {
+            flex: 1;
+            text-align: center;
+            padding: 10px;
+            background-color: #1a1a2e;
+            color: #999;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .tab.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .tab:first-child {
+            border-radius: 4px 0 0 4px;
+        }
+        
+        .tab:last-child {
+            border-radius: 0 4px 4px 0;
+        }
+        
+        .form-content {
+            display: none;
+        }
+        
+        .form-content.active {
+            display: block;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #ddd;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border-radius: 4px;
+            border: 1px solid #333;
+            background-color: #252538;
+            color: white;
+            box-sizing: border-box;
+        }
+        
+        .form-button {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 4px;
+            background: var(--gradient-1);
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .form-button:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+        
+        .deposit-button {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            margin-top: 20px;
+            border: none;
+            border-radius: 4px;
+            background: var(--gradient-3);
+            color: white;
+            font-weight: bold;
+            text-align: center;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .deposit-button:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+        
+        .form-footer {
+            margin-top: 20px;
+            text-align: center;
+            color: #999;
+        }
+        
+        .form-footer a {
+            color: var(--accent-color);
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="auth-container">
+        <div class="auth-form">
+            <div class="form-tabs">
+                <div class="tab active" onclick="switchTab('login')">Login</div>
+                <div class="tab" onclick="switchTab('signup')">Signup</div>
+            </div>
+            
+            <div id="login-form" class="form-content active">
+                <h2 style="color: white; text-align: center; margin-bottom: 20px;">Welkom bij Kakadu Casino</h2>
+                <form>
+                    <div class="form-group">
+                        <label for="login-email">Email</label>
+                        <input type="email" id="login-email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="login-password">Wachtwoord</label>
+                        <input type="password" id="login-password" required>
+                    </div>
+                    <button type="submit" class="form-button">Inloggen</button>
+                </form>
+                <div class="form-footer">
+                    <a href="#">Wachtwoord vergeten?</a>
+                </div>
+                <a href="https://payment-links.mollie.com/payment/poypJRucYYgGd93hoJ3c" class="deposit-button">Stort nu</a>
+            </div>
+            
+            <div id="signup-form" class="form-content">
+                <h2 style="color: white; text-align: center; margin-bottom: 20px;">Registreer bij Kakadu Casino</h2>
+                <form>
+                    <div class="form-group">
+                        <label for="signup-name">Naam</label>
+                        <input type="text" id="signup-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="signup-email">Email</label>
+                        <input type="email" id="signup-email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="signup-password">Wachtwoord</label>
+                        <input type="password" id="signup-password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="signup-confirm">Bevestig wachtwoord</label>
+                        <input type="password" id="signup-confirm" required>
+                    </div>
+                    <button type="submit" class="form-button">Registreren</button>
+                </form>
+                <a href="https://payment-links.mollie.com/payment/poypJRucYYgGd93hoJ3c" class="deposit-button">Stort nu</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function switchTab(tab) {
+            // Hide all content
+            document.querySelectorAll('.form-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // Deactivate all tabs
+            document.querySelectorAll('.tab').forEach(tabEl => {
+                tabEl.classList.remove('active');
+            });
+            
+            // Activate selected tab and content
+            document.getElementById(tab + '-form').classList.add('active');
+            document.querySelector(`.tab[onclick="switchTab('${tab}')"]`).classList.add('active');
+        }
+    </script>
+</body>
+</html>

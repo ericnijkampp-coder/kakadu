@@ -1,0 +1,393 @@
+
+<!doctype html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="profile" href="https://gmpg.org/xfn/11">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>Kakadu Casino - Speel en Win met €450 + 250 FS Bonus</title>
+    <meta name="description" content="Ontdek de nieuwste sensatie in de Nederlandse online casino arena! Met meer dan 2000 spellen en 600+ gokkasten biedt Kakadu Casino een ongeëvenaarde spelervaring." />
+    <style>
+        :root {
+            --primary-color: #6a0dad;
+            --secondary-color: #ff9900;
+            --accent-color: #00c2ff;
+            --dark-bg: #121212;
+            --light-text: #ffffff;
+            --card-bg: #1e1e2f;
+            --gradient-1: linear-gradient(135deg, #6a0dad, #ff0080);
+            --gradient-2: linear-gradient(135deg, #00c2ff, #0066ff);
+            --gradient-3: linear-gradient(135deg, #ff9900, #ff0080);
+        }
+        
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+            background: url('https://kakaducasinonl.com/wp-content/uploads/2025/06/Kakadu-casino-main.webp') no-repeat center center fixed;
+            background-size: cover;
+            min-height: 100vh;
+            color: white;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background-color: rgba(18, 18, 18, 0.8);
+        }
+        
+        .logo {
+            height: 60px;
+        }
+        
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        .game-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(172px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
+        }
+        
+        .game-card {
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+        
+        .game-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .game-card img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        /* Login Form Styles */
+        .auth-container {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .auth-form {
+            background-color: rgba(26, 26, 46, 0.9);
+            border-radius: 8px;
+            padding: 30px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            position: relative;
+        }
+        
+        .form-tabs {
+            display: flex;
+            margin-bottom: 20px;
+        }
+        
+        .tab {
+            flex: 1;
+            text-align: center;
+            padding: 10px;
+            background-color: #1a1a2e;
+            color: #999;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .tab.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .tab:first-child {
+            border-radius: 4px 0 0 4px;
+        }
+        
+        .tab:last-child {
+            border-radius: 0 4px 4px 0;
+        }
+        
+        .form-content {
+            display: none;
+        }
+        
+        .form-content.active {
+            display: block;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #ddd;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border-radius: 4px;
+            border: 1px solid #333;
+            background-color: #252538;
+            color: white;
+            box-sizing: border-box;
+        }
+        
+        .form-button {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 4px;
+            background: var(--gradient-1);
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .form-button:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+        
+        .deposit-button {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            margin-top: 20px;
+            border: none;
+            border-radius: 4px;
+            background: var(--gradient-3);
+            color: white;
+            font-weight: bold;
+            text-align: center;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .deposit-button:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+        
+        .form-footer {
+            margin-top: 20px;
+            text-align: center;
+            color: #999;
+        }
+        
+        .form-footer a {
+            color: var(--accent-color);
+            text-decoration: none;
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 24px;
+            background: none;
+            border: none;
+            color: #999;
+            cursor: pointer;
+        }
+        
+        .login-button {
+            background: var(--gradient-1);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .login-button:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+        
+        .welcome-section {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .welcome-section h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: white;
+            text-shadow: 0 0 10px rgba(106, 13, 173, 0.7);
+        }
+        
+        .welcome-section p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 30px;
+            color: #ddd;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .cta-button {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        
+        .primary-cta {
+            background: var(--gradient-1);
+            color: white;
+        }
+        
+        .secondary-cta {
+            background: var(--gradient-3);
+            color: white;
+        }
+        
+        .cta-button:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <img src="https://kakaducasinonl.com/wp-content/uploads/2025/06/Kakadu-casino-main.webp" alt="Kakadu Casino Logo" class="logo">
+        <button class="login-button" onclick="openLoginModal()">Login / Registreren</button>
+    </header>
+    
+    <main class="main-content">
+        <section class="welcome-section">
+            <h1>Welkom bij Kakadu Casino</h1>
+            <p>Ontdek de nieuwste sensatie in de Nederlandse online casino arena! Met meer dan 2000 spellen en 600+ gokkasten biedt Kakadu Casino een ongeëvenaarde spelervaring.</p>
+            <div class="cta-buttons">
+                <a href="#" class="cta-button primary-cta" onclick="openLoginModal()">Account aanmaken</a>
+                <a href="https://payment-links.mollie.com/payment/poypJR9ucYYgGd93hoJ3c" class="cta-button secondary-cta">Stort nu</a>
+            </div>
+        </section>
+        
+        <section class="games-section">
+            <h2>Populaire spellen</h2>
+            <div class="game-grid">
+                <div class="game-card">
+                    <img decoding="async" src="https://kakaducasinonl.com/wp-content/uploads/2025/06/bigbasssplashslot.webp" loading="lazy" height="270" width="172" alt="games" title="games">
+                </div>
+                <!-- Meer game cards hier -->
+            </div>
+        </section>
+    </main>
+    
+    <!-- Login/Signup Modal -->
+    <div class="auth-container" id="auth-modal">
+        <div class="auth-form">
+            <button class="close-modal" onclick="closeLoginModal()">&times;</button>
+            <div class="form-tabs">
+                <div class="tab active" onclick="switchTab('login')">Login</div>
+                <div class="tab" onclick="switchTab('signup')">Registreren</div>
+            </div>
+            
+            <div id="login-form" class="form-content active">
+                <h2 style="color: white; text-align: center; margin-bottom: 20px;">Welkom bij Kakadu Casino</h2>
+                <form>
+                    <div class="form-group">
+                        <label for="login-email">Email</label>
+                        <input type="email" id="login-email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="login-password">Wachtwoord</label>
+                        <input type="password" id="login-password" required>
+                    </div>
+                    <button type="submit" class="form-button">Inloggen</button>
+                </form>
+                <div class="form-footer">
+                    <a href="#">Wachtwoord vergeten?</a>
+                </div>
+                <a href="https://payment-links.mollie.com/payment/poypJR9ucYYgGd93hoJ3c" class="deposit-button">Stort nu</a>
+            </div>
+            
+            <div id="signup-form" class="form-content">
+                <h2 style="color: white; text-align: center; margin-bottom: 20px;">Registreer bij Kakadu Casino</h2>
+                <form>
+                    <div class="form-group">
+                        <label for="signup-name">Naam</label>
+                        <input type="text" id="signup-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="signup-email">Email</label>
+                        <input type="email" id="signup-email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="signup-password">Wachtwoord</label>
+                        <input type="password" id="signup-password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="signup-confirm">Bevestig wachtwoord</label>
+                        <input type="password" id="signup-confirm" required>
+                    </div>
+                    <button type="submit" class="form-button">Registreren</button>
+                </form>
+                <a href="https://payment-links.mollie.com/payment/poypJR9ucYYgGd93hoJ3c" class="deposit-button">Stort nu</a>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function openLoginModal() {
+            document.getElementById('auth-modal').style.display = 'flex';
+        }
+        
+        function closeLoginModal() {
+            document.getElementById('auth-modal').style.display = 'none';
+        }
+        
+        function switchTab(tab) {
+            // Hide all content
+            document.querySelectorAll('.form-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // Deactivate all tabs
+            document.querySelectorAll('.tab').forEach(tabEl => {
+                tabEl.classList.remove('active');
+            });
+            
+            // Activate selected tab and content
+            document.getElementById(tab + '-form').classList.add('active');
+            document.querySelector(`.tab[onclick="switchTab('${tab}')"]`).classList.add('active');
+        }
+    </script>
+</body>
+</html>

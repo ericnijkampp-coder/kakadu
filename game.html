@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>Kakadu Casino - Game</title>
+    <style>
+        :root {
+            --primary-color: #6a0dad;
+            --secondary-color: #ff9900;
+            --accent-color: #00c2ff;
+            --dark-bg: #121212;
+            --light-text: #ffffff;
+            --card-bg: #1e1e2f;
+            --gradient-1: linear-gradient(135deg, #6a0dad, #ff0080);
+            --gradient-2: linear-gradient(135deg, #00c2ff, #0066ff);
+            --gradient-3: linear-gradient(135deg, #ff9900, #ff0080);
+        }
+        
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--dark-bg);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background-color: rgba(18, 18, 18, 0.9);
+            border-bottom: 2px solid var(--secondary-color);
+        }
+        
+        .logo {
+            height: 60px;
+            cursor: pointer;
+        }
+        
+        .user-controls {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .balance {
+            background-color: var(--card-bg);
+            padding: 8px 15px;
+            border-radius: 20px;
+            border: 1px solid var(--secondary-color);
+            font-weight: bold;
+        }
+        
+        .deposit-button {
+            background: var(--gradient-3);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .deposit-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+        
+        .back-button {
+            background: transparent;
+            color: white;
+            border: 1px solid white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .back-button:hover {
+            background-color: rgba(255,255,255,0.1);
+        }
+        
+        .game-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        
+        .game-frame {
+            width: 100%;
+            max-width: 900px;
+            aspect-ratio: 16 / 9;
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            position: relative;
+            margin-bottom: 20px;
+        }
+        
+        .game-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .game-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .game-title {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: var(--secondary-color);
+            text-align: center;
+        }
+        
+        .play-button {
+            background: var(--gradient-1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 30px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .play-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(106, 13, 173, 0.7);
+        }
+        
+        .game-info {
+            margin-top: 20px;
+            background-color: var(--card-bg);
+            padding: 20px;
+            border-radius: 10px;
+            width: 100%;
+            max-width: 900px;
+        }
+        
+        .game-info h2 {
+            color: var(--secondary-color);
+            margin-top: 0;
+        }
+        
+        .game-info p {
+            line-height: 1.6;
+        }
+        
+        .game-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .detail-item {
+            background-color: rgba(0,0,0,0.2);
+            padding: 10px;
+            border-radius: 5px;
+        }
+        
+        .detail-label {
+            font-size: 0.9rem;
+            color: var(--accent-color);
+            margin-bottom: 5px;
+        }
+        
+        .detail-value {
+            font-weight: bold;
+        }
+        
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .user-controls {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .game-frame {
+                aspect-ratio: 4 / 3;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <img src="https://kakaducasinonl.com/wp-content/uploads/2025/06/Kakadu-casino-main.webp" alt="Kakadu Casino Logo" class="logo" onclick="goToHome()">
+        <div class="user-controls">
+            <button class="back-button" onclick="goToHome()">Terug naar spellen</button>
+            <div class="balance">€1000.00</div>
+            <a href="https://payment-links.mollie.com/payment/poypJR9ucYYgGd93hoJ3c" class="deposit-button">Stort nu</a>
+        </div>
+    </header>
+    
+    <main class="game-container">
+        <div class="game-frame">
+            <img id="game-image" class="game-image" src="" alt="Game">
+            <div class="game-overlay">
+                <h1 id="game-title" class="game-title">Game Title</h1>
+                <button class="play-button" onclick="playGame()">Speel nu</button>
+            </div>
+        </div>
+        
+        <div class="game-info">
+            <h2 id="game-description-title">Game Beschrijving</h2>
+            <p id="game-description">Laad game informatie...</p>
+            
+            <div class="game-details">
+                <div class="detail-item">
+                    <div class="detail-label">Provider</div>
+                    <div class="detail-value" id="game-provider">-</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">RTP</div>
+                    <div class="detail-value" id="game-rtp">-</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">Volatiliteit</div>
+                    <div class="detail-value" id="game-volatility">-</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">Min. Inzet</div>
+                    <div class="detail-value" id="game-min-bet">-</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">Max. Inzet</div>
+                    <div class="detail-value" id="game-max-bet">-</div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <script>
+        // Game data (in a real implementation, this would come from a database)
+        const gameData = {
+            'buffalo-extreme': {
+                title: 'Buffalo Extreme',
+                image: 'images/buffalo-extreme.jpg',
+                description: 'Ervaar de wilde vlaktes van Amerika in Buffalo Extreme! Deze spannende gokkast biedt 4096 manieren om te winnen met stampende kuddes buffels die enorme winsten kunnen opleveren.',
+                provider: 'Pragmatic Play',
+                rtp: '96.5%',
+                volatility: 'Hoog',
+                minBet: '€0.20',
+                maxBet: '€100'
+            },
+            'buffalo-hold-and-win': {
+                title: 'Buffalo Hold and Win',
+                image: 'images/buffalo-hold-and-win.jpg',
+                description: 'Buffalo Hold and Win combineert het populaire Hold and Win mechanisme met het klassieke buffalo thema voor een unieke spelervaring met bonusfuncties en jackpots.',
+                provider: 'Booming Games',
+                rtp: '95.8%',
+                volatility: 'Medium-Hoog',
+                minBet: '€0.25',
+                maxBet: '€125'
+            },
+            'burning-classics': {
+                title: 'Burning Classics',
+                image: 'images/burning-classics.jpg',
+                description: 'Een vurige twist op de klassieke fruitmachine. Burning Classics biedt eenvoudige gameplay met hoge uitbetalingen en spannende wild symbolen die voor grote winsten kunnen zorgen.',
+                provider: 'Booming Games',
+                rtp: '96.2%',
+                volatility: 'Medium',
+                minBet: '€0.10',
+                maxBet: '€50'
+            },
+            'classic-coins': {
+                title: 'Classic Coins',
+                image: 'images/classic-coins.jpg',
+                description: 'Duik in de nostalgische wereld van Classic Coins, waar glimmende munten en klassieke symbolen je kunnen leiden naar grote prijzen en bonusrondes.',
+                provider: 'Pragmatic Play',
+                rtp: '95.9%',
+                volatility: 'Laag-Medium',
+                minBet: '€0.20',
+                maxBet: '€100'
+            },
+            '64-gold-coins': {
+                title: '64 Gold Coins',
+                image: 'images/64-gold-coins.jpg',
+                description: 'Verzamel gouden munten in deze Aziatisch geïnspireerde gokkast met 64 manieren om te winnen en speciale features die je kans op grote winsten vergroten.',
+                provider: 'Booming Games',
+                rtp: '96.7%',
+                volatility: 'Hoog',
+                minBet: '€0.30',
+                maxBet: '€150'
+            },
+            'bonza-bucks': {
+                title: 'Bonza Bucks',
+                image: 'images/bonza-bucks.jpg',
+                description: 'Een Australisch avontuur met kangoeroes, koala\'s en andere Aussie symbolen. Bonza Bucks biedt gratis spins en vermenigvuldigers voor bonza winsten!',
+                provider: 'Booming Games',
+                rtp: '96.1%',
+                volatility: 'Medium',
+                minBet: '€0.20',
+                maxBet: '€100'
+            },
+            'boogie-boom': {
+                title: 'Boogie Boom',
+                image: 'images/boogie-boom.jpg',
+                description: 'Dans de nacht weg met Boogie Boom, een disco-geïnspireerde gokkast met flitsende lichten, funky muziek en dansende wild symbolen die je winsten kunnen verdubbelen.',
+                provider: 'Pragmatic Play',
+                rtp: '95.7%',
+                volatility: 'Medium-Hoog',
+                minBet: '€0.25',
+                maxBet: '€125'
+            },
+            'booming-circus': {
+                title: 'Booming Circus',
+                image: 'images/booming-circus.jpg',
+                description: 'Treed binnen in de wereld van het circus met acrobaten, clowns en andere artiesten. Booming Circus biedt spannende bonus features en gratis spins voor extra entertainment.',
+                provider: 'Booming Games',
+                rtp: '96.3%',
+                volatility: 'Medium',
+                minBet: '€0.20',
+                maxBet: '€100'
+            }
+        };
+        
+        // Get game ID from URL
+        function getGameIdFromUrl() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('game');
+        }
+        
+        // Load game data
+        function loadGameData() {
+            const gameId = getGameIdFromUrl();
+            const game = gameData[gameId];
+            
+            if (game) {
+                document.title = `Kakadu Casino - ${game.title}`;
+                document.getElementById('game-image').src = game.image;
+                document.getElementById('game-title').textContent = game.title;
+                document.getElementById('game-description-title').textContent = `${game.title} Beschrijving`;
+                document.getElementById('game-description').textContent = game.description;
+                document.getElementById('game-provider').textContent = game.provider;
+                document.getElementById('game-rtp').textContent = game.rtp;
+                document.getElementById('game-volatility').textContent = game.volatility;
+                document.getElementById('game-min-bet').textContent = game.minBet;
+                document.getElementById('game-max-bet').textContent = game.maxBet;
+            } else {
+                // Redirect to home if game not found
+                goToHome();
+            }
+        }
+        
+        // Play game function
+        function playGame() {
+            const gameId = getGameIdFromUrl();
+            const game = gameData[gameId];
+            
+            if (game) {
+                // In a real implementation, this would launch the actual game
+                // For now, we'll just hide the overlay to simulate starting the game
+                document.querySelector('.game-overlay').style.display = 'none';
+                
+                // Show an alert for demonstration purposes
+                alert(`${game.title} wordt geladen... In een echte implementatie zou de game nu starten.`);
+            }
+        }
+        
+        // Go to home page
+        function goToHome() {
+            window.location.href = 'index.html';
+        }
+        
+        // Check if user is logged in
+        function checkLogin() {
+            const isLoggedIn = sessionStorage.getItem('isLoggedIn');
+            
+            if (!isLoggedIn) {
+                // Redirect to home page if not logged in
+                goToHome();
+            }
+        }
+        
+        // Initialize
+        window.onload = function() {
+            checkLogin();
+            loadGameData();
+            
+            // Set user balance (in a real implementation, this would come from a database)
+            const username = sessionStorage.getItem('username');
+            if (username) {
+                // Generate a random balance for demonstration
+                const balance = (Math.random() * 1000 + 100).toFixed(2);
+                document.querySelector('.balance').textContent = `€${balance}`;
+            }
+        };
+    </script>
+</body>
+</html>
